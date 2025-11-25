@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -73,53 +72,6 @@ class HttpManager extends GetxService {
     final headers = await _getHeaders();
     log.i('[Http] -> $endpoint GET params=$queryParameters');
     final response = await httpClient.get(uri, headers: headers);
-    return _handleResponse(response, endpoint);
-  }
-
-  Future<dynamic> postRequest({
-    required String endpoint,
-    Map<String, dynamic>? body,
-  }) async {
-    body ??= {};
-    final uri = _parseEndpointUri(endpoint);
-    final headers = await _getHeaders();
-    log.i('[Http] -> $endpoint body=$body');
-    final response =
-        await httpClient.post(uri, headers: headers, body: json.encode(body));
-    return _handleResponse(response, endpoint);
-  }
-
-  Future<dynamic> postRequestWithAudio({
-    required String endpoint,
-    required File audioFile,
-  }) async {
-    final uri = _parseEndpointUri(endpoint);
-    final headers = await _getHeaders();
-
-    // Read audio file bytes
-    final bytes = await audioFile.readAsBytes();
-
-    // Create multipart request
-    final request = http.MultipartRequest('POST', uri);
-
-    // Add headers
-    request.headers.addAll(headers);
-
-    // Add file
-    request.files.add(
-      http.MultipartFile.fromBytes(
-        'audio',
-        bytes,
-        filename: 'audio.m4a',
-      ),
-    );
-
-    log.i('[Http] -> $endpoint with audio (size: ${bytes.length} bytes)');
-
-    // Send request and get response
-    final streamedResponse = await request.send();
-    final response = await http.Response.fromStream(streamedResponse);
-
     return _handleResponse(response, endpoint);
   }
 }

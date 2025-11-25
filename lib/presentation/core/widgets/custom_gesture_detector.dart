@@ -8,7 +8,6 @@ class CustomGestureDetector extends StatefulWidget {
   final Widget child;
   final void Function()? onTap;
   final bool disableGesture;
-  final bool desactivateSound;
   final bool desactivateHaptic;
 
   const CustomGestureDetector({
@@ -16,7 +15,6 @@ class CustomGestureDetector extends StatefulWidget {
     required this.child,
     this.onTap,
     this.disableGesture = false,
-    this.desactivateSound = false,
     this.desactivateHaptic = false,
   });
 
@@ -75,9 +73,6 @@ class _CustomGestureDetectorState extends State<CustomGestureDetector>
               unawaited(HapticFeedbackUtils.light());
             }
             await _controller.forward();
-            if (!widget.desactivateSound) {
-              // Get.find<AudioManager>().playSound(Sounds.tapOnButton);
-            }
             widget.onTap!();
             unawaited(_controller.reverse());
           }
