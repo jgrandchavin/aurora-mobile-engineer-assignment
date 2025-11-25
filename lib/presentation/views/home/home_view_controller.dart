@@ -29,7 +29,7 @@ class HomeViewController extends IViewController
       vsync: this,
       duration: Duration(milliseconds: 750),
       reverseDuration: Duration(milliseconds: 750),
-      value: 0.0,
+      value: 1.0,
     );
 
     super.onInit();

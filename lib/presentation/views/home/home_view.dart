@@ -71,6 +71,7 @@ class _HomeViewState extends State<HomeView> {
                       final btn = _interval(base, 0.0, 1.0);
                       final btnOpacity = btn;
                       final btnOffset = (1.0 - btn) * 24.0;
+
                       return Opacity(
                         opacity: btnOpacity,
                         child: Transform.translate(
