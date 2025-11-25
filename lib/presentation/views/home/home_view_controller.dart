@@ -118,7 +118,7 @@ class HomeViewController extends IViewController
   }
 
   void playHapticFeedback() {
-    HapticFeedbackUtils.bubbleAppear();
+    HapticFeedbackUtils.imageAppear();
     HapticFeedbackUtils.selection();
   }
 }

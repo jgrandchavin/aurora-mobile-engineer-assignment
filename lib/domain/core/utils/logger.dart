@@ -8,7 +8,6 @@ class AuroraPrinter extends PrettyPrinter {
           methodCount: 0,
           errorMethodCount: 10,
           lineLength: 50,
-          // colors: false,
           printEmojis: true,
         );
 }
