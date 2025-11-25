@@ -1,13 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
-final log = Logger(
-  filter: _DebugLogFilter(),
-);
+late Logger log;
 
-class _DebugLogFilter extends LogFilter {
-  @override
-  bool shouldLog(LogEvent event) {
-    return kDebugMode;
-  }
+class AuroraPrinter extends PrettyPrinter {
+  AuroraPrinter()
+      : super(
+          methodCount: 0,
+          errorMethodCount: 10,
+          lineLength: 50,
+          // colors: false,
+          printEmojis: true,
+        );
 }

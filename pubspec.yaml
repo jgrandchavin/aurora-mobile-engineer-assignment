@@ -18,7 +18,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   rxdart: ^0.28.0
   http: ^1.2.2
-  logger: ^2.5.0
+  logger: ^2.6.2
   simple_animations: ^5.1.0
   flutter_animate: ^4.5.2
   gaimon: ^1.4.1

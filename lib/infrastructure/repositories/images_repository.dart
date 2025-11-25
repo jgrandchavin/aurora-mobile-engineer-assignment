@@ -4,7 +4,7 @@ class ImagesRepository extends IRepository {
   ImagesRepository();
 
   Future<String> getRandomImageUrl() async {
-    final response = await httpManager.getRequest(endpoint: 'images');
-    return response['url'];
+    final response = await httpManager.getRequest(endpoint: 'image');
+    return response['body']['url'];
   }
 }

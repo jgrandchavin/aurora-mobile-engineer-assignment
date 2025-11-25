@@ -4,10 +4,18 @@ import 'package:aurora_mobile_engineer_assignment/infrastructure/core/http_manag
 import 'package:aurora_mobile_engineer_assignment/infrastructure/repositories/images_repository.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 import 'domain/core/utils/logger.dart';
 
 class Initialization {
+  /// Initialize the logger
+  static void initializeLogger() {
+    log = Logger(
+      printer: AuroraPrinter(),
+    );
+  }
+
   /// Inject all controllers and repositories
   static void injectRepositoriesAndControllers() {
     Get.put<ImagesRepository>(ImagesRepository(), permanent: true);

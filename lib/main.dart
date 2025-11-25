@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:aurora_mobile_engineer_assignment/initialization.dart';
-import 'package:aurora_mobile_engineer_assignment/presentation/views/home/home_view.dart';
+import 'package:aurora_mobile_engineer_assignment/presentation/navigation/navigation.dart';
+import 'package:aurora_mobile_engineer_assignment/presentation/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ void main() {
   return runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+
+      Initialization.initializeLogger();
 
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -26,13 +29,15 @@ void main() {
       runApp(
         GetMaterialApp(
           title: 'Aurora Mobile Engineer Assignment',
-          defaultTransition: Transition.fadeIn,
-          home: const HomeView(),
+          getPages: Navigation.routes,
+          initialRoute: Routes.home,
           builder: (context, child) {
-            return MediaQuery(
-              data: MediaQuery.of(context)
-                  .copyWith(textScaler: const TextScaler.linear(1)),
-              child: child ?? Container(),
+            return Overlay(
+              initialEntries: [
+                OverlayEntry(
+                  builder: (context) => child ?? Container(),
+                ),
+              ],
             );
           },
         ),
