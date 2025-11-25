@@ -81,5 +81,9 @@ flutter run -d <device_id>
   3. Choose your Apple Developer Team and ensure a valid bundle identifier
   4. Let Xcode manage signing or provide the proper profiles
 
+## Demos
+
+- There are two demo videos in the `demos/` directory.
+
 
 
