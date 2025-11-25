@@ -1,119 +1,85 @@
-# Flutter App Starter - Appleton
+## Aurora Mobile Engineer Assignment
 
-A clean architecture Flutter starter project by Appleton.
+Tiny mobile app that fetches a random image from an API and displays it centered as a square. A button loads another image. The background adapts to the image’s colors for an immersive effect.
 
-## Overview
+## Goal
 
-This repository contains a Flutter application structured with a clean architecture pattern, featuring:
+- **Single screen UI**
+- **Square image** centered on screen
+- **Background color** adapts to the image
+- **“Another”** button below the image fetches a new one
 
-- Authentication services
-- Analytics tracking
-- In-app purchases
-- Localization support
-- Configuration management
+## API
 
-## Project Structure
+- **Endpoint**: `GET https://november7-730026606190.europe-west1.run.app/image`
+- **Docs**: `https://november7-730026606190.europe-west1.run.app/docs#/default/get_random_image_image__get`
+- **Example response**:
 
-```
-lib/
-├── configs/           # Environment and configuration constants
-├── domain/            # Business logic
-│   ├── audio/         # Audio services
-│   ├── core/          # Core domain utilities
-│   ├── features/      # App features
-│   └── services/      # Business services (Auth, Analytics, IAP)
-├── infrastructure/    # Data layer implementations
-├── presentation/      # UI components and screens
-├── main.dart          # Application entry point
-└── initialization.dart # App initialization logic
+```json
+{ "url": "https://images.unsplash.com/photo-1506744038136-46273834b3fb" }
 ```
 
-## Technology Stack
+Notes:
+- CORS is enabled server-side.
+- URLs point to Unsplash; treat them as large, remote images (use caching/placeholder strategies).
 
-- **State Management**: GetX
-- **Backend Integration**: Supabase
-- **Analytics**: Amplitude, Branch
-- **IAP**: Adapty
-- **Notifications**: OneSignal
-- **Error Tracking**: Sentry
+## Requirements
 
-## Getting Started
+- **UI**: Single screen, square image centered, “Another” button
+- **Background**: Adapts to image colors
+- **Fetching**: Tapping the button triggers a new `GET /image` and updates the image
+- **Loading state**: Show while fetching
+- **Errors**: Handle gracefully (message + retry)
+- **Polish**:
+  - Smooth transitions (fade image in; animate background color change)
+  - Respect light/dark mode
+  - Basic accessibility (labels, contrast, semantics/announcements)
+
+## Implementation Notes
+
+- **Image loading**: Use a cached network strategy and a lightweight placeholder/shimmer
+- **Transitions**: 
+  - Fade in the new image on load completion
+  - Animate background color between images
+- **Accessibility**:
+  - Provide accessible labels (e.g., “Another image”)
+  - Ensure button tap target and contrast are sufficient
+  - Announce loading and errors to assistive tech
+- **Error handling**:
+  - Show a user-friendly message and a retry affordance
+  - Keep last successful image visible if possible
+
+## Run the App
 
 ### Prerequisites
+- Flutter 3.x (Dart 3.x)
+- Xcode (for iOS), Android Studio/SDK (for Android)
 
-- Flutter 3.29.2
-- Dart SDK 3.6.0+
-
-### Environment Setup
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-3. Set up environment variables:
-   - Create a `.env` file based on the example file
-
-### Running the App
-
+### Install and run
 ```bash
+flutter pub get
 flutter run
 ```
 
-## Features
-
-- **Authentication**: Sign-in with email, Apple, Google
-- **Analytics**: Track user behavior and engagement
-- **In-App Purchases**: Subscription management
-- **Localization**: Multi-language support
-- **Configuration**: Remote and local app configurations
-
-## Architecture
-
-The application follows a clean architecture pattern with:
-
-- **Domain Layer**: Business logic and rules
-- **Infrastructure Layer**: Data sources and repositories
-- **Presentation Layer**: UI components and screens
-
-## Development
-
-### Code Generation
-
+### iOS specific
+- First build may require CocoaPods:
 ```bash
-flutter pub run build_runner build --delete-conflicting-outputs
+cd ios && pod install && cd ..
+```
+- Select device:
+```bash
+flutter devices
+flutter run -d <device_id>
 ```
 
-### Testing
+## Important iOS Notes
 
-```bash
-flutter test
-```
+- **Build and test on a real iOS device for haptics.** Simulators do not reflect haptic feedback behavior.
+- **Update signing to your account**:
+  1. Open `ios/Runner.xcworkspace` in Xcode
+  2. Select the `Runner` target → `Signing & Capabilities`
+  3. Choose your Apple Developer Team and ensure a valid bundle identifier
+  4. Let Xcode manage signing or provide the proper profiles
 
-## Deployment
 
-### iOS
 
-1. Update version in `pubspec.yaml`
-2. Build the app:
-   ```bash
-   flutter build ios 
-   ```
-3. Upload to App Store Connect
-
-### Android
-
-1. Update version in `pubspec.yaml`
-2. Build the app:
-   ```bash
-   flutter build appbundle
-   ```
-3. Upload to Google Play Console
-
-## License
-
-Proprietary - Appleton, Inc.
-
-## About Appleton
-
-[Appleton](https://appleton.studio) specializes in developing innovative mobile solutions.
